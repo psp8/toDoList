@@ -5,12 +5,10 @@ import {
   CardContent,
   Avatar,
   Typography,
-  IconButton,
-  Box,
   Grid,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import TaskActionButtons from "./TaskActionButtons";
+import TaskStatus from "./TaskStatus";
 
 interface Props {
   task: Task;
@@ -20,19 +18,6 @@ interface Props {
 
 const TaskItem: React.FC<Props> = ({ task, onEdit, onDelete }) => {
   const isCompleted = task.status === "Completed";
-
-  const getStatusColor = (status: Task["status"]) => {
-    switch (status) {
-      case "In Progress":
-        return "#ff9800";
-      case "Pending":
-        return "#DDDDDD";
-      case "Completed":
-        return "#4caf50";
-      default:
-        return "#DDDDDD";
-    }
-  };
 
   return (
     <Card
@@ -48,7 +33,7 @@ const TaskItem: React.FC<Props> = ({ task, onEdit, onDelete }) => {
       }}
     >
       <CardContent>
-        <Grid container direction="row" size={12} spacing={1} alignItems="center">
+        <Grid container spacing={2} columns={12}  alignItems={'flex-start'}>
           <Grid size={{ xs: 2, md: 1, lg: 1 }}>
             <Avatar
               sx={{
@@ -61,77 +46,42 @@ const TaskItem: React.FC<Props> = ({ task, onEdit, onDelete }) => {
               {task.title.charAt(0).toUpperCase()}
             </Avatar>
           </Grid>
-
-          <Grid size={{ xs: 5, md: 8, lg: 9 }}>
-            <Typography
-              variant='h6'
-              sx={{
-                fontWeight: 600,
-                textDecoration: isCompleted ? "line-through" : "none",
-                color: isCompleted ? "text.secondary" : "text.primary",
-                mb: 1,
-              }}
-            >
-              {task.title}
-            </Typography>
-          </Grid>
-
-          <Grid size={{ xs: 5, md: 4, lg: 2 }}>
-            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 0.5 }}>
-
-              <div
-                style={{ width: 10, height: 10, backgroundColor: getStatusColor(task.status) as any, borderRadius: '50%' }}
-              >
-              </div>
-              <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
-                {task.status}
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 12, lg: 12 }}>
-            <Typography
-              variant="body2"
-              sx={{
-                color: "text.secondary",
-                whiteSpace: "pre-wrap",
-                wordWrap: "break-word",
-                lineHeight: 1.4,
-              }}
-            >
-              {task.description}
-            </Typography>
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 12, lg: 12 }} container direction="row" spacing={1} justifyContent="space-between" alignItems="center" >
-            <Grid>
-              <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>{task.date}</Typography>
-            </Grid>
-            <Grid>
-              <Box
-                className="action-buttons"
+          <Grid size={{ xs: 10, md: 11, lg: 11 }} container>
+            <Grid size={12} direction={'row'} container justifyContent={'space-between'} alignItems={'flex-start'}>
+              <Typography
+                variant="h6"
                 sx={{
-                  display: "flex",
-                  gap: 0.5,
-                  opacity: 0,
-                  transition: "opacity 0.2s ease-in-out",
+                  fontWeight: 600,
+                  textDecoration: isCompleted ? "line-through" : "none",
+                  color: isCompleted ? "text.secondary" : "text.primary",
+                  mb: 1,
+                  fontSize: { xs: '0.875rem', sm: '1.25rem' },
                 }}
               >
-                <IconButton
-                  size="small"
-                  onClick={() => onEdit(task)}
-                  sx={{ color: "text.secondary" }}
-                >
-                  <EditIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  size="small"
-                  onClick={() => onDelete(task.id)}
-                  sx={{ color: "error.main" }}
-                >
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
-              </Box>
+                {task.title.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+              </Typography>
+              <TaskStatus task={task} />
+            </Grid>
+            <Grid size={12} direction={'row'} container justifyContent={'space-between'}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "text.secondary",
+                  whiteSpace: "pre-wrap",
+                  wordWrap: "break-word",
+                  lineHeight: 1.4,
+                }}
+              >
+                {task.description}
+              </Typography>
+            </Grid>
+            <Grid size={12} direction={'row'} container justifyContent={'space-between'} alignItems={'center'}>
+              <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>{task.date}</Typography>
+              <TaskActionButtons
+                task={task}
+                onEdit={onEdit}
+                onDelete={onDelete}
+              />
             </Grid>
           </Grid>
         </Grid>

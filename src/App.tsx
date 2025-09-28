@@ -16,6 +16,7 @@ import {
   Toolbar,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import moment from "moment";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -29,11 +30,7 @@ export default function App() {
       id: Date.now(),
       title,
       description,
-      date: new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }),
+      date: moment(new Date()).format("DD-MM-YYYY HH:mm"),
       status: "Pending",
     };
     dispatch(addTask(newTask));
