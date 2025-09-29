@@ -33,7 +33,7 @@ const TaskItem: React.FC<Props> = ({ task, onEdit, onDelete }) => {
       }}
     >
       <CardContent>
-        <Grid container spacing={2} columns={12}  alignItems={'flex-start'}>
+        <Grid container spacing={2} columns={12} alignItems={'flex-start'}>
           <Grid size={{ xs: 2, md: 1, lg: 1 }}>
             <Avatar
               sx={{

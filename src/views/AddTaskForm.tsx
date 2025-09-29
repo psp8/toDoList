@@ -1,5 +1,5 @@
 import React from "react";
-import TaskFormPage, { TaskFormValues } from "./TaskFormDialog";
+import TaskFormPage, { TaskFormValues } from "../components/TaskFormDialog";
 
 interface Props {
   onAdd: (title: string, description: string, status: string) => void;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Task } from "../features/tasks/tasksSlice";
-import TaskFormPage, { TaskFormValues } from "./TaskFormDialog";
+import TaskFormPage, { TaskFormValues } from "../components/TaskFormDialog";
 
 interface Props {
   task: Task;
