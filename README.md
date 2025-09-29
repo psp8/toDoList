@@ -2,6 +2,10 @@
 
 A modern, responsive todo list application built with React, TypeScript, Redux Toolkit, and Material-UI. This application allows you to create, manage, and organize your tasks with a clean and intuitive interface.
 
+## 🌐 Live Demo
+
+**Try the application online**: [https://task-management-app-net.netlify.app/](https://task-management-app-net.netlify.app/)
+
 ## ✨ Features
 
 - **Task Management**: Create, edit, and delete tasks
