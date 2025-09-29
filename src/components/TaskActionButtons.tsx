@@ -2,7 +2,12 @@ import React from "react";
 import { IconButton, Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Task } from "../features/tasks/tasksSlice";
+import { Task } from "../features/tasksSlice";
+import {
+    actionButtonsContainerStyles,
+    editButtonStyles,
+    deleteButtonStyles,
+} from "../styles/TaskActionButtons.styles";
 
 interface Props {
     task: Task;
@@ -14,24 +19,19 @@ const TaskActionButtons: React.FC<Props> = ({ task, onEdit, onDelete }) => {
     return (
         <Box
             className="action-buttons"
-            sx={{
-                display: "flex",
-                gap: 0.5,
-                opacity: 0,
-                transition: "opacity 0.2s ease-in-out",
-            }}
+            sx={actionButtonsContainerStyles}
         >
             <IconButton
                 size="small"
                 onClick={() => onEdit(task)}
-                sx={{ color: "text.secondary" }}
+                sx={editButtonStyles}
             >
                 <EditIcon fontSize="small" />
             </IconButton>
             <IconButton
                 size="small"
                 onClick={() => onDelete(task.id)}
-                sx={{ color: "error.main" }}
+                sx={deleteButtonStyles}
             >
                 <DeleteIcon fontSize="small" />
             </IconButton>

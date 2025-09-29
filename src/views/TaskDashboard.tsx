@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import { Task } from "../features/tasks/tasksSlice";
+import { Task } from "../features/tasksSlice";
 import TaskList from "../components/TaskList";
 import FloatingActionButton from "../components/FloatingActionButton";
 import {
@@ -14,6 +14,13 @@ import {
     Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import {
+    appBarTitleStyles,
+    containerStyles,
+    searchBoxStyles,
+    searchFieldStyles,
+    listsContainerStyles,
+} from "../styles/TaskDashboard.styles";
 
 interface TaskDashboardProps {
     searchQuery: string;
@@ -46,14 +53,14 @@ export default function TaskDashboard({
         <>
             <AppBar position="static" elevation={1}>
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" component="div" sx={appBarTitleStyles}>
                         TO-DO APP
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <Container maxWidth="md" sx={{ py: 4 }}>
+            <Container maxWidth="md" sx={containerStyles}>
                 {/* Search */}
-                <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+                <Box sx={searchBoxStyles}>
                     <TextField
                         fullWidth
                         placeholder="Search To-Do"
@@ -66,17 +73,12 @@ export default function TaskDashboard({
                                 </InputAdornment>
                             ),
                         }}
-                        sx={{
-                            "& .MuiOutlinedInput-root": {
-                                backgroundColor: "background.paper",
-                                boxShadow: 1,
-                            },
-                        }}
+                        sx={searchFieldStyles}
                     />
                 </Box>
 
                 {/* Lists */}
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <Box sx={listsContainerStyles}>
                     <TaskList
                         title={`In Progress (${inProgressTasks.length})`}
                         tasks={inProgressTasks}

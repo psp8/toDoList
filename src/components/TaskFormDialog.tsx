@@ -15,8 +15,22 @@ import {
     IconButton,
     Chip,
 } from "@mui/material";
-import { TaskStatus } from "../features/tasks/tasksSlice";
+import { TaskStatus } from "../features/tasksSlice";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import {
+    mainContainerStyles,
+    backButtonStyles,
+    titleStyles,
+    formContainerStyles,
+    paperStyles,
+    formGridStyles,
+    statusFormControlStyles,
+    selectStyles,
+    statusOptionContainerStyles,
+    statusIndicatorStyles,
+    actionButtonsContainerStyles,
+    statusOptions,
+} from "../styles/TaskFormDialog.styles";
 
 export interface TaskFormValues {
     title: string;
@@ -41,13 +55,6 @@ const TaskFormPage: React.FC<TaskFormPageProps> = ({
     const [description, setDescription] = useState(initialValues?.description ?? "");
     const [status, setStatus] = useState<TaskStatus>(initialValues?.status ?? ("Pending" as TaskStatus));
 
-
-    const statusOptions = [
-        { value: "Pending", label: "Pending", color: "#DDDDDD" },
-        { value: "In Progress", label: "In Progress", color: "#ff9800" },
-        { value: "Completed", label: "Completed", color: "#4caf50" },
-    ] as const;
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!title.trim()) return;
@@ -55,7 +62,7 @@ const TaskFormPage: React.FC<TaskFormPageProps> = ({
     };
 
     return (
-        <Box sx={{ minHeight: "100vh", backgroundColor: "background.default" }}>
+        <Box sx={mainContainerStyles}>
             {/* App Bar */}
             <AppBar position="static" elevation={1}>
                 <Toolbar>
@@ -63,21 +70,21 @@ const TaskFormPage: React.FC<TaskFormPageProps> = ({
                         edge="start"
                         color="inherit"
                         onClick={onCancel}
-                        sx={{ mr: 2 }}
+                        sx={backButtonStyles}
                     >
                         <ArrowBackIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" component="div" sx={titleStyles}>
                         {mode === "add" ? "Add Task" : "Edit Task"}
                     </Typography>
                 </Toolbar>
             </AppBar>
 
             {/* Form Content */}
-            <Container maxWidth="sm" sx={{ py: 4 }}>
-                <Paper elevation={2} sx={{ p: 4 }}>
+            <Container maxWidth="sm" sx={formContainerStyles}>
+                <Paper elevation={2} sx={paperStyles}>
                     <form onSubmit={handleSubmit}>
-                        <Box sx={{ display: "grid", gap: 3 }}>
+                        <Box sx={formGridStyles}>
                             <TextField
                                 autoFocus
                                 required
@@ -100,9 +107,7 @@ const TaskFormPage: React.FC<TaskFormPageProps> = ({
                             />
                             <FormControl
                                 fullWidth
-                                sx={{
-                                    display: mode === 'add' ? 'none' : 'block',
-                                }}
+                                sx={statusFormControlStyles(mode)}
                             >
                                 <InputLabel id="status-select-label">Status</InputLabel>
                                 <Select
@@ -111,23 +116,15 @@ const TaskFormPage: React.FC<TaskFormPageProps> = ({
                                     value={status}
                                     label="Status"
                                     onChange={(e) => setStatus(e.target.value as TaskStatus)}
-                                    sx={{
-                                        '& .MuiSelect-select': {
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                        }
-                                    }}
+                                    sx={selectStyles}
                                 >
                                     {statusOptions.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
-                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                            <Box sx={statusOptionContainerStyles}>
                                                 <Box
                                                     sx={{
-                                                        width: 12,
-                                                        height: 12,
-                                                        borderRadius: '50%',
+                                                        ...statusIndicatorStyles,
                                                         backgroundColor: option.color,
-                                                        flexShrink: 0,
                                                     }}
                                                 />
                                                 <Typography variant="body2">
@@ -141,7 +138,7 @@ const TaskFormPage: React.FC<TaskFormPageProps> = ({
                         </Box>
 
                         {/* Action Buttons */}
-                        <Box sx={{ display: "flex", gap: 2, mt: 4, justifyContent: "space-between" }}>
+                        <Box sx={actionButtonsContainerStyles}>
                             <Button onClick={onCancel} variant="outlined" size="large">
                                 Cancel
                             </Button>

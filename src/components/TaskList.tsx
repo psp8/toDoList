@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Task } from "../features/tasks/tasksSlice";
+import { Task } from "../features/tasksSlice";
 import TaskItem from "./TaskItem";
 import {
   Accordion,
@@ -9,6 +9,14 @@ import {
   Box,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {
+  accordionStyles,
+  accordionSummaryStyles,
+  titleStyles,
+  accordionDetailsStyles,
+  contentBoxStyles,
+  emptyStateStyles,
+} from "../styles/TaskList.styles";
 
 interface Props {
   title: string;
@@ -24,33 +32,18 @@ const TaskList: React.FC<Props> = ({ title, tasks, onEdit, onDelete }) => {
     <Accordion
       expanded={isOpen}
       onChange={() => setIsOpen(!isOpen)}
-      sx={{
-        mb: 2,
-        "&:before": {
-          display: "none",
-        },
-        boxShadow: 1,
-        borderRadius: 1,
-      }}
+      sx={accordionStyles}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        sx={{
-          backgroundColor: "grey.100",
-          "&:hover": {
-            backgroundColor: "grey.200",
-          },
-          "&.Mui-expanded": {
-            backgroundColor: "grey.100",
-          },
-        }}
+        sx={accordionSummaryStyles}
       >
-        <Typography variant="h6" fontWeight="bold" color="text.primary">
+        <Typography sx={titleStyles}>
           {title}
         </Typography>
       </AccordionSummary>
-      <AccordionDetails sx={{ p: 0 }}>
-        <Box sx={{ p: 2 }}>
+      <AccordionDetails sx={accordionDetailsStyles}>
+        <Box sx={contentBoxStyles}>
           {tasks.length > 0 ? (
             tasks.map((task) => (
               <TaskItem
@@ -61,12 +54,7 @@ const TaskList: React.FC<Props> = ({ title, tasks, onEdit, onDelete }) => {
               />
             ))
           ) : (
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              textAlign="center"
-              sx={{ py: 2 }}
-            >
+            <Typography sx={emptyStateStyles}>
               No tasks in this category.
             </Typography>
           )}

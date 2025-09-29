@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTask, updateTask, deleteTask, Task } from "./features/tasks/tasksSlice";
+import { addTask, updateTask, deleteTask, Task } from "./features/tasksSlice";
 import TaskDashboard from "./views/TaskDashboard";
 import AddTaskForm from "./views/AddTaskForm";
 import EditTaskForm from "./views/EditTaskForm";
