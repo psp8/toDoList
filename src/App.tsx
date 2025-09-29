@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./store";
 import { addTask, updateTask, deleteTask, Task } from "./features/tasks/tasksSlice";
-import TaskList from "./components/TaskList";
-import AddTaskForm from "./components/AddTaskForm";
-import EditTaskForm from "./components/EditTaskForm";
+import TaskList from "./views/TaskList";
+import AddTaskForm from "./views/AddTaskForm";
+import EditTaskForm from "./views/EditTaskForm";
 import FloatingActionButton from "./components/FloatingActionButton";
 import {
   Container,
